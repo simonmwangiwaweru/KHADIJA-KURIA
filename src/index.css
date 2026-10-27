@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  --color-gold: #C9A86C;
+  --color-gold-hover: #B89658;
+  --color-gold-dark: #9F7E41;
+  --color-gold-light: #F8F3EA;
+  --color-espresso: #2C221A;
+  --color-espresso-dark: #1B1510;
+  --color-cream: #FDFBF7;
+  --color-sand: #F4ECE4;
+  --color-whatsapp: #25D366;
+  --color-whatsapp-hover: #20BD5A;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  background-color: #FDFBF7;
+  color: #2C221A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.font-sans {
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+}
