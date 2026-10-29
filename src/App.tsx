@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { ExecutiveHeaderCard } from './components/ExecutiveHeaderCard';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { SuitesSection } from './components/SuitesSection';
 import { BoardroomSection } from './components/BoardroomSection';
 import { DiningAtriumSection } from './components/DiningAtriumSection';
 import { EstimatorSection } from './components/EstimatorSection';
+import { ExecutiveHeaderCard } from './components/ExecutiveHeaderCard';
 import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
 import { BoardroomModal } from './components/BoardroomModal';
 import { LightboxModal, LightboxImageItem } from './components/LightboxModal';
+import { ProductDetailModal } from './components/ProductDetailModal';
 import { BoardType, SuiteItem } from './config/config';
 
 export default function App() {
   // Global Board Type Toggle [Room Only | Bed & Breakfast]
   const [boardType, setBoardType] = useState<BoardType>('room_only');
+
+  // Selected Product for Detailed Information Modal
+  const [selectedProduct, setSelectedProduct] = useState<SuiteItem | null>(null);
 
   // Boardroom Modal state
   const [boardroomModalState, setBoardroomModalState] = useState<{
@@ -62,25 +66,23 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FDFBF7] text-[#2C221A] selection:bg-[#C9A86C]/30 selection:text-[#2C221A]">
-      {/* 1. EXECUTIVE CARD + HEADER */}
-      <ExecutiveHeaderCard />
-
-      {/* TOP BAR / NAVBAR */}
+      {/* TOP BAR / NAVBAR (At the very top) */}
       <Navbar />
 
-      {/* MAIN CONTENT SECTIONS */}
+      {/* MAIN CONTENT SECTIONS (Products seen first!) */}
       <main className="flex-1">
-        {/* 2. HERO */}
+        {/* 1. HERO SECTION (Features the master bedroom with translucent dark scrim overlay) */}
         <HeroSection onOpenLightbox={openSingleImageLightbox} />
 
-        {/* 3. SUITES & RATES */}
+        {/* 2. THE PRODUCTS FIRST: SUITES & APARTMENTS (Seen first, clicking opens all relevant info) */}
         <SuitesSection
           boardType={boardType}
           setBoardType={setBoardType}
           onOpenSuiteGallery={openSuiteGallery}
+          onSelectProduct={(suite) => setSelectedProduct(suite)}
         />
 
-        {/* 4. EXECUTIVE BOARDROOM */}
+        {/* 3. EXECUTIVE BOARDROOM & CONFERENCE FACILITIES */}
         <BoardroomSection
           onOpenReserveModal={(packageId) =>
             setBoardroomModalState({
@@ -91,13 +93,16 @@ export default function App() {
           onOpenLightbox={openSingleImageLightbox}
         />
 
-        {/* 5. LANTERN DINING & ATRIUM */}
+        {/* 4. LANTERN DINING & CENTRAL ATRIUM */}
         <DiningAtriumSection onOpenLightbox={openSingleImageLightbox} />
 
-        {/* 6. STAY RATE ESTIMATOR */}
+        {/* 5. STAY RATE ESTIMATOR & SPECIAL OFFERS */}
         <EstimatorSection initialBoardType={boardType} />
 
-        {/* 7. LOCATION */}
+        {/* 6. ABOUT US & EXECUTIVE MANAGEMENT (Business card moved to bottom for about info) */}
+        <ExecutiveHeaderCard />
+
+        {/* 7. LOCATION & NEIGHBORHOOD */}
         <LocationSection />
       </main>
 
@@ -105,6 +110,14 @@ export default function App() {
       <Footer />
 
       {/* MODALS */}
+      {/* Product Detail Modal (Shows all relevant info when clicking any product) */}
+      <ProductDetailModal
+        isOpen={Boolean(selectedProduct)}
+        onClose={() => setSelectedProduct(null)}
+        product={selectedProduct}
+        initialBoardType={boardType}
+      />
+
       {/* Boardroom Reservation Modal */}
       <BoardroomModal
         isOpen={boardroomModalState.isOpen}

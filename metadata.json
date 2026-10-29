@@ -1,6 +1,6 @@
 {
-  "name": "Custom Web Studio",
-  "description": "A tailored web application built with modern interactive design.",
+  "name": "Lantern Serviced Apartments",
+  "description": "Refined serviced living, fully furnished suites, and executive boardroom facilities on Chemilil Road, Parklands, Nairobi.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

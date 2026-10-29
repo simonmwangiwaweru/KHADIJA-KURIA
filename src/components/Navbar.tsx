@@ -97,6 +97,12 @@ export const Navbar: React.FC = () => {
               Lantern Dining
             </button>
             <button
+              onClick={() => handleNavClick('about')}
+              className="hover:text-[#CCA662] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              About Us
+            </button>
+            <button
               onClick={() => handleNavClick('location')}
               className="hover:text-[#CCA662] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
@@ -155,6 +161,12 @@ export const Navbar: React.FC = () => {
             className="w-full text-left py-2.5 text-xs font-bold uppercase tracking-wider text-stone-800 hover:text-[#CCA662]"
           >
             Lantern Dining & Atrium
+          </button>
+          <button
+            onClick={() => handleNavClick('about')}
+            className="w-full text-left py-2.5 text-xs font-bold uppercase tracking-wider text-stone-800 hover:text-[#CCA662]"
+          >
+            About Us & Management
           </button>
           <button
             onClick={() => handleNavClick('location')}

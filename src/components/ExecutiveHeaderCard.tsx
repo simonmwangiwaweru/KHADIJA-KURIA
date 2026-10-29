@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, MessageSquare, Mail, MapPin, Building, ShieldCheck, Clock } from 'lucide-react';
+import { Phone, MessageSquare, Mail, MapPin, Building, ShieldCheck, Clock, UserCheck } from 'lucide-react';
 import { CONTACT_CONFIG } from '../config/config';
 import { LANTERN_IMAGES } from '../config/images';
 
@@ -9,11 +9,25 @@ export const ExecutiveHeaderCard: React.FC = () => {
   );
 
   return (
-    <section className="w-full bg-[#1C1611] text-[#FAF8F5] py-6 sm:py-8 border-b border-[#30261E] relative overflow-hidden">
+    <section id="about" className="w-full bg-[#1C1611] text-[#FAF8F5] py-16 sm:py-20 border-t border-[#30261E] scroll-mt-20 relative overflow-hidden">
       {/* Subtle brand warm gold atmospheric glow */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C9A86C]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Intro for About Us & Management */}
+        <div className="max-w-2xl pb-8">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#C9A86C]">
+            <span className="w-2 h-2 rounded-full bg-[#C9A86C]" />
+            <span>About Lantern & Host Relations</span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mt-1.5">
+            Executive Management & Inquiries
+          </h2>
+          <p className="text-sm text-stone-300 mt-1">
+            Meet our dedicated guest relations and reservations manager, Khadija Kuria, ensuring your corporate retreat or extended residential stay in Parklands is seamless.
+          </p>
+        </div>
+
         {/* The Executive Digital Profile Card */}
         <div className="relative bg-white text-[#221F1C] rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
@@ -38,9 +52,9 @@ export const ExecutiveHeaderCard: React.FC = () => {
 
               {/* Executive Name & Title */}
               <div className="space-y-1">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#221F1C] uppercase font-sans">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#221F1C] uppercase font-sans">
                   {CONTACT_CONFIG.executive.name}
-                </h1>
+                </h3>
                 <p className="text-sm font-medium text-[#8C6D32]">
                   {CONTACT_CONFIG.executive.title} · <span className="text-stone-700 font-semibold">{CONTACT_CONFIG.central.brandName}</span>
                 </p>
@@ -94,7 +108,7 @@ export const ExecutiveHeaderCard: React.FC = () => {
                 </div>
               </div>
 
-              {/* Direct WhatsApp Action Button (Call direct & Save contact removed as requested) */}
+              {/* Direct WhatsApp Action Button */}
               <div className="pt-4 border-t border-stone-200">
                 <a
                   href={`https://wa.me/${CONTACT_CONFIG.executive.whatsappDigits}?text=${executiveWhatsAppMessage}`}
@@ -119,9 +133,9 @@ export const ExecutiveHeaderCard: React.FC = () => {
                   Property Portfolio
                 </span>
 
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">
-                  Serviced Suites & Executive Boardrooms
-                </h3>
+                <h4 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">
+                  Serviced Living & Executive Conferences
+                </h4>
 
                 <p className="text-white/90 text-xs leading-relaxed">
                   Boutique serviced living in the heart of Parklands. Fully furnished studios, executive suites, and corporate meeting facilities.

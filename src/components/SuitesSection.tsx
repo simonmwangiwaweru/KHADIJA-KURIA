@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Bed, Maximize2, MessageSquare, Images, Check } from 'lucide-react';
+import { Users, Bed, Maximize2, MessageSquare, Images, Check, ArrowRight, Info } from 'lucide-react';
 import { SUITES_DATA, BoardType, CONTACT_CONFIG, SuiteItem } from '../config/config';
 import { ImageWithFallback } from './ImageWithFallback';
 
@@ -7,12 +7,14 @@ interface SuitesSectionProps {
   boardType: BoardType;
   setBoardType: (type: BoardType) => void;
   onOpenSuiteGallery: (suite: SuiteItem) => void;
+  onSelectProduct: (suite: SuiteItem) => void;
 }
 
 export const SuitesSection: React.FC<SuitesSectionProps> = ({
   boardType,
   setBoardType,
   onOpenSuiteGallery,
+  onSelectProduct,
 }) => {
   const getSuitePrice = (suite: SuiteItem) => {
     return boardType === 'bed_and_breakfast'
@@ -40,13 +42,13 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#8C6D32]">
               <span className="w-2 h-2 rounded-full bg-[#C9A86C]" />
-              <span>Residential Collection</span>
+              <span>Core Products & Accommodation</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2C221A] mt-1.5">
-              Suites & Nightly Rates
+              Our Serviced Apartments & Suites
             </h2>
             <p className="text-sm text-stone-600 mt-1 max-w-xl">
-              All suites feature private kitchens, high-speed fiber internet, rainfall showers, and daily housekeeping.
+              Click any suite below to view all relevant specifications, room dimensions, photos, and amenities.
             </p>
           </div>
 
@@ -75,7 +77,7 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
           </div>
         </div>
 
-        {/* 4 Suite Cards Grid */}
+        {/* 4 Suite Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10">
           {SUITES_DATA.map((suite) => {
             const currentPrice = getSuitePrice(suite);
@@ -83,10 +85,11 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
             return (
               <div
                 key={suite.id}
-                className="bg-[#FDFBF7] rounded-xl border border-stone-200/90 overflow-hidden shadow-xs hover:border-[#C9A86C]/70 transition-all flex flex-col"
+                className="bg-[#FDFBF7] rounded-2xl border border-stone-200/90 overflow-hidden shadow-xs hover:border-[#C9A86C] hover:shadow-md transition-all flex flex-col group cursor-pointer"
+                onClick={() => onSelectProduct(suite)}
               >
                 {/* Image & Photo Trigger */}
-                <div className="relative h-60 sm:h-72 bg-stone-100 overflow-hidden group">
+                <div className="relative h-64 sm:h-72 bg-stone-100 overflow-hidden">
                   <ImageWithFallback
                     src={suite.primaryImage}
                     alt={suite.name}
@@ -94,18 +97,28 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                  {/* View Photos Pill Action */}
-                  <button
-                    onClick={() => onOpenSuiteGallery(suite)}
-                    className="min-h-[44px] absolute bottom-3 right-3 px-3.5 py-1.5 rounded-lg bg-black/70 hover:bg-black/90 text-white text-xs font-medium backdrop-blur-sm flex items-center gap-1.5 transition-colors cursor-pointer"
-                  >
-                    <Images className="w-3.5 h-3.5 text-[#C9A86C]" />
-                    <span>View Photos ({suite.imageGalleryKeys.length})</span>
-                  </button>
-
+                  {/* Top Tags */}
                   <div className="absolute top-3 left-3 bg-[#2C221A]/85 text-[#EBD9A8] text-[11px] font-semibold px-2.5 py-1 rounded-md backdrop-blur-xs">
                     {suite.size}
                   </div>
+
+                  <div className="absolute top-3 right-3 bg-white/90 text-[#2C221A] text-[11px] font-bold px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1">
+                    <Info className="w-3 h-3 text-[#8C6D32]" />
+                    <span>Click for Full Info</span>
+                  </div>
+
+                  {/* View Photos Action */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenSuiteGallery(suite);
+                    }}
+                    className="min-h-[40px] absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/70 hover:bg-black/90 text-white text-xs font-medium backdrop-blur-sm flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Images className="w-3.5 h-3.5 text-[#C9A86C]" />
+                    <span>{suite.imageGalleryKeys.length} Photos</span>
+                  </button>
                 </div>
 
                 {/* Content */}
@@ -113,7 +126,7 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <h3 className="font-serif text-2xl font-bold text-[#2C221A]">
+                        <h3 className="font-serif text-2xl font-bold text-[#2C221A] group-hover:text-[#8C6D32] transition-colors">
                           {suite.name}
                         </h3>
                         <p className="text-xs text-stone-600 mt-1 line-clamp-2">
@@ -132,7 +145,7 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
                       </div>
                     </div>
 
-                    {/* Suite Specifications Strip */}
+                    {/* Specifications Strip */}
                     <div className="flex flex-wrap items-center gap-3 py-2 border-y border-stone-200 text-xs text-stone-600">
                       <span className="flex items-center gap-1.5">
                         <Users className="w-3.5 h-3.5 text-[#8C6D32]" />
@@ -152,7 +165,7 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
 
                     {/* Feature Chips */}
                     <ul className="space-y-1.5 pt-1 text-xs text-stone-600">
-                      {suite.features.map((feature, idx) => (
+                      {suite.features.slice(0, 4).map((feature, idx) => (
                         <li key={idx} className="flex items-center gap-2">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                           <span>{feature}</span>
@@ -161,16 +174,26 @@ export const SuitesSection: React.FC<SuitesSectionProps> = ({
                     </ul>
                   </div>
 
-                  {/* Actions: Green WhatsApp button */}
-                  <div className="pt-2">
+                  {/* Dual Action Buttons */}
+                  <div className="pt-2 grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => onSelectProduct(suite)}
+                      className="min-h-[44px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-[#2C221A] text-xs font-bold transition-colors cursor-pointer border border-stone-300"
+                    >
+                      <span>View All Info</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#8C6D32]" />
+                    </button>
+
                     <a
                       href={generateWhatsAppLink(suite)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="min-h-[44px] w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] text-white text-xs sm:text-sm font-semibold hover:bg-[#20BD5A] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366]"
+                      onClick={(e) => e.stopPropagation()}
+                      className="min-h-[44px] flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#25D366] text-white text-xs font-bold hover:bg-[#20BD5A] transition-colors shadow-xs"
                     >
-                      <MessageSquare className="w-4 h-4" />
-                      <span>Book on WhatsApp (KSh {currentPrice.toLocaleString()})</span>
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      <span>Book WhatsApp</span>
                     </a>
                   </div>
                 </div>
